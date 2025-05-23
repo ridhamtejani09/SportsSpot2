@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -37,9 +36,18 @@ const Login = () => {
     
     try {
       await signIn(formData.email, formData.password);
+      toast({
+        title: "Success",
+        description: "You have been logged in successfully.",
+      });
       navigate('/');
-    } catch (error) {
+    } catch (error: any) {
       console.error("Login error:", error);
+      toast({
+        title: "Login failed",
+        description: error.message || "Please check your credentials and try again.",
+        variant: "destructive",
+      });
     } finally {
       setIsSubmitting(false);
     }

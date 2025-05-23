@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -50,9 +49,18 @@ const SignUp = () => {
     
     try {
       await signUp(formData.email, formData.password, formData.name, formData.phone);
+      toast({
+        title: "Success",
+        description: "Your account has been created successfully. Please check your email to verify your account.",
+      });
       navigate('/');
-    } catch (error) {
+    } catch (error: any) {
       console.error("Signup error:", error);
+      toast({
+        title: "Signup failed",
+        description: error.message || "An error occurred while creating your account. Please try again.",
+        variant: "destructive",
+      });
     } finally {
       setIsSubmitting(false);
     }

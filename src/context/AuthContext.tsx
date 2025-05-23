@@ -8,6 +8,8 @@ interface AuthContextProps {
   isAdmin: boolean;
   isLoading: boolean;
   signOut: () => Promise<void>;
+  signIn: (email: string, password: string) => Promise<void>;
+  signUp: (email: string, password: string, name: string, phone: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextProps>({
@@ -16,6 +18,8 @@ const AuthContext = createContext<AuthContextProps>({
   isAdmin: false,
   isLoading: true,
   signOut: async () => {},
+  signIn: async () => {},
+  signUp: async () => {},
 });
 
 interface AuthContextProviderProps {
@@ -47,6 +51,57 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
     } catch (error) {
       console.error("Error checking admin status:", error);
       setIsAdmin(false);
+    }
+  };
+
+  const signIn = async (email: string, password: string) => {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      throw error;
+    }
+
+    if (data.user) {
+      await checkIsAdmin(data.user.id);
+    }
+  };
+
+  const signUp = async (email: string, password: string, name: string, phone: string) => {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name: name,
+          phone: phone,
+        },
+      },
+    });
+
+    if (error) {
+      throw error;
+    }
+
+    if (data.user) {
+      // Create a profile for the new user
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .insert([
+          {
+            id: data.user.id,
+            full_name: name,
+            phone: phone,
+            is_admin: false,
+          },
+        ]);
+
+      if (profileError) {
+        console.error("Error creating profile:", profileError);
+        throw profileError;
+      }
     }
   };
 
@@ -90,6 +145,8 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
     isAdmin,
     isLoading,
     signOut,
+    signIn,
+    signUp,
   };
 
   return (
