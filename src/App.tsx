@@ -19,6 +19,7 @@ import AllArticles from "./pages/AllArticles";
 import AllEvents from "./pages/AllEvents";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
+import AdminSetup from "./pages/AdminSetup";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +47,7 @@ const App = () => (
                 <AdminPanel />
               </AdminRoute>
             } />
+            <Route path="/admin-setup" element={<AdminSetup />} />
             <Route path="/about" element={<AboutUs />} />
             <Route path="/terms" element={<TermsOfService />} />
             <Route path="/articles" element={<AllArticles />} />

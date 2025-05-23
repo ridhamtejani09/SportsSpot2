@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -9,7 +8,7 @@ const Hero = () => {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img 
-          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1473&auto=format&fit=crop" 
+          src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1936" 
           alt="Sports turf at sunset" 
           className="w-full h-full object-cover"
         />
