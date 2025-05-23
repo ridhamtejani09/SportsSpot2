@@ -36,6 +36,7 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
 
   const checkIsAdmin = async (userId: string) => {
     try {
+      console.log("Checking admin status for user:", userId);
       const { data, error } = await supabase
         .from('profiles')
         .select('is_admin')
@@ -45,9 +46,13 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
       if (error) {
         console.error("Error fetching admin status:", error);
         setIsAdmin(false);
-      } else {
-        setIsAdmin(data?.is_admin === true);
+        return;
       }
+
+      console.log("Admin status data:", data);
+      const isUserAdmin = data?.is_admin === true;
+      console.log("Is user admin:", isUserAdmin);
+      setIsAdmin(isUserAdmin);
     } catch (error) {
       console.error("Error checking admin status:", error);
       setIsAdmin(false);
