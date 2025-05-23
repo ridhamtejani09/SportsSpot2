@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -73,54 +72,60 @@ const EventsSection = () => {
         </div>
         
         <div className="space-y-8">
-          {events.map((event) => (
-            <Card key={event.id} className="overflow-hidden shadow-lg border-0">
-              <div className="flex flex-col md:flex-row">
-                <div className="md:w-1/3 h-56 md:h-auto">
-                  <img
-                    src={event.image}
-                    alt={event.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-6 md:w-2/3 flex flex-col">
-                  <div className="flex-grow">
-                    <h3 className="text-2xl font-bold mb-2">{event.title}</h3>
-                    <p className="text-gray-600 mb-4">{event.description}</p>
-                    
-                    <div className="flex flex-wrap gap-4 text-sm text-gray-600 mb-6">
-                      <div className="flex items-center gap-1">
-                        <Calendar size={16} className="text-sport-purple" />
-                        <span>{event.date}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <MapPin size={16} className="text-sport-purple" />
-                        <span>{event.location}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Users size={16} className="text-sport-purple" />
-                        <span>{event.participants}</span>
+          {events.length === 0 ? (
+            <div className="text-center text-gray-500 py-12">
+              No events found. Please check back later!
+            </div>
+          ) : (
+            events.map((event) => (
+              <Card key={event.id} className="overflow-hidden shadow-lg border-0">
+                <div className="flex flex-col md:flex-row">
+                  <div className="md:w-1/3 h-56 md:h-auto">
+                    <img
+                      src={event.image}
+                      alt={event.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="p-6 md:w-2/3 flex flex-col">
+                    <div className="flex-grow">
+                      <h3 className="text-2xl font-bold mb-2">{event.title}</h3>
+                      <p className="text-gray-600 mb-4">{event.description}</p>
+                      
+                      <div className="flex flex-wrap gap-4 text-sm text-gray-600 mb-6">
+                        <div className="flex items-center gap-1">
+                          <Calendar size={16} className="text-sport-purple" />
+                          <span>{event.date}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <MapPin size={16} className="text-sport-purple" />
+                          <span>{event.location}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Users size={16} className="text-sport-purple" />
+                          <span>{event.participants}</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  
-                  <div>
-                    <Button
-                      onClick={() => handleRegister(event.id, event.title)}
-                      disabled={registrationStatus[event.id]}
-                      className={`${
-                        registrationStatus[event.id] 
-                          ? "bg-green-500 hover:bg-green-600" 
-                          : "bg-sport-purple hover:bg-sport-purple-dark"
-                      } btn-effect`}
-                    >
-                      {registrationStatus[event.id] ? "Registered" : "Register Now"}
-                    </Button>
+                    
+                    <div>
+                      <Button
+                        onClick={() => handleRegister(event.id, event.title)}
+                        disabled={registrationStatus[event.id]}
+                        className={`${
+                          registrationStatus[event.id] 
+                            ? "bg-green-500 hover:bg-green-600" 
+                            : "bg-sport-purple hover:bg-sport-purple-dark"
+                        } btn-effect`}
+                      >
+                        {registrationStatus[event.id] ? "Registered" : "Register Now"}
+                      </Button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Card>
-          ))}
+              </Card>
+            ))
+          )}
         </div>
         
         <div className="mt-12 text-center">

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -56,33 +55,39 @@ const ArticlesSection = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {articles.map((article) => (
-            <Card 
-              key={article.id} 
-              className="overflow-hidden shadow-lg card-hover border-0 cursor-pointer" 
-              onClick={() => handleArticleClick(article.url)}
-            >
-              <div className="h-48 overflow-hidden">
-                <img
-                  src={article.image}
-                  alt={article.title}
-                  className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500"
-                />
-              </div>
-              <CardHeader>
-                <CardTitle className="text-xl font-bold">{article.title}</CardTitle>
-                <CardDescription className="text-sm text-gray-500">{article.date}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600 line-clamp-3">{article.description}</p>
-              </CardContent>
-              <CardFooter>
-                <span className="text-sport-purple font-medium hover:underline">
-                  Read More →
-                </span>
-              </CardFooter>
-            </Card>
-          ))}
+          {articles.length === 0 ? (
+            <div className="col-span-3 text-center text-gray-500 py-12">
+              No articles found. Please check back later!
+            </div>
+          ) : (
+            articles.map((article) => (
+              <Card 
+                key={article.id} 
+                className="overflow-hidden shadow-lg card-hover border-0 cursor-pointer" 
+                onClick={() => handleArticleClick(article.url)}
+              >
+                <div className="h-48 overflow-hidden">
+                  <img
+                    src={article.image}
+                    alt={article.title}
+                    className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
+                <CardHeader>
+                  <CardTitle className="text-xl font-bold">{article.title}</CardTitle>
+                  <CardDescription className="text-sm text-gray-500">{article.date}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600 line-clamp-3">{article.description}</p>
+                </CardContent>
+                <CardFooter>
+                  <span className="text-sport-purple font-medium hover:underline">
+                    Read More →
+                  </span>
+                </CardFooter>
+              </Card>
+            ))
+          )}
         </div>
         
         <div className="mt-12 text-center">

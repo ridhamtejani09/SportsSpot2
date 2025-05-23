@@ -196,7 +196,13 @@ const BookVenue = () => {
                     <div className="flex flex-col md:flex-row">
                       <div className="md:w-2/5 h-60 md:h-auto">
                         <img
-                          src={venue.image_url || "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1936"}
+                          src={
+                            venue.image_url
+                              ? venue.image_url
+                              : venue.sport.toLowerCase() === 'pickleball'
+                                ? 'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?q=80&w=1974'
+                                : 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1936'
+                          }
                           alt={venue.name}
                           className="w-full h-full object-cover"
                         />

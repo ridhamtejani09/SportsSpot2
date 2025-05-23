@@ -86,8 +86,8 @@ const Hero = () => {
                  }}
             >
               <img 
-                src="https://images.unsplash.com/photo-1511886929837-354984b71424?q=80&w=1470" 
-                alt="Cricket players on field" 
+                src="https://images.unsplash.com/photo-1505843271134-2549c8c6b6b5?q=80&w=1470" 
+                alt="Football on field" 
                 className="w-full h-full object-cover"
               />
             </div>
